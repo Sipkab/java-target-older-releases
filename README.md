@@ -1,5 +1,7 @@
 # java-target-older-releases
 
+[![Build status](https://img.shields.io/azure-devops/build/sipkab/9d59d82f-91d9-4ebe-afde-9576467ac8b6/5/master)](https://dev.azure.com/sipkab/java-target-older-releases/_build?definitionId=5)
+
 Example project that uses new Java language features while still able to run on Java 8. The project uses the [saker.build system](https://github.com/sakerbuild/saker.build).
 
 See the related blogpost [Using switch expressions, text blocks, and var on Java 8](https://saker.build/blog/java_target_older_releases/) for more information.
@@ -33,6 +35,8 @@ To check that you can indeed use new language feature on Java 8, run the followi
 ```
 java -jar build/saker.jar.create/output.jar
 ```
+
+You can also view the test run as [part of the CI build on Azure Pipelines](https://dev.azure.com/sipkab/java-target-older-releases/_build/results?buildId=53&view=logs&j=12f1170f-54f2-53f3-20dd-22fc7dff55f9&t=59a85588-b0ba-5043-24c4-d9e29d89c6f6).
 
 The output should be similar to the following:
 
