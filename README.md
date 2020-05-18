@@ -21,7 +21,7 @@ Or see the [installation guide](https://saker.build/saker.build/doc/installation
 You need Java 14 to build the project which should be specified in the following build command:
 
 ```
-java -jar path/to/saker.build.jar -bd build -EUsaker.java.jre.install.locations=path/to/jdk14 export saker.build
+java -jar saker.build.jar -bd build -EUsaker.java.jre.install.locations=path/to/jdk14 export saker.build
 ```
 
 (Replace `path/to/jdk14` with the path to the Java home of the JDK 14 installation. You can download JDK14 from [AdoptOpenJDK](https://adoptopenjdk.net/archive.html?variant=openjdk14).)
