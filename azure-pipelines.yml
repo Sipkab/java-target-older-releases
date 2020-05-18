@@ -27,5 +27,5 @@ steps:
     artifactName: 'export_jar'
     parallel: true
 
-- script: $(JAVA_HOME_8_X64) -jar build/saker.jar.create/output.jar
+- script: $(JAVA_HOME_8_X64)/bin/java -jar build/saker.jar.create/output.jar
   displayName: 'Run test'
