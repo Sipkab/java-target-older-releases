@@ -1,0 +1,35 @@
+compile(
+	out javac
+) {
+	$javac = saker.java.compile(
+		SourceDirectories: src,
+		Parameters: [
+			--enable-preview,
+			--release, 8
+		],
+		PatchEnablePreview: true,
+		AllowTargetReleaseMismatch: true,
+		SourceVersion: 14,
+		# No need to specify TargetVersion as the --release parameter implies it
+		#TargetVersion: 8,
+		SDKs: {
+			# Use JDK 14 for compilation
+			Java: saker.java.sdk(14),
+		},
+	)
+}
+export(
+	in compile = compile()
+) {
+	saker.jar.create(
+		Resources: {
+			Directory: $compile[javac][ClassDirectory],
+			Resources: **
+		},
+		Manifest: {
+			MainAttributes: {
+				Main-Class: test.Main
+			}
+		}
+	)
+}
