@@ -12,14 +12,14 @@ steps:
 - script: bash /tmp/azure_ubuntu_jdksetup_variables.sh 8 14
   displayName: 'Setup JDKs'
 
-- script: java -jar saker.build.jar -bd build "-EUsaker.java.jre.install.locations=$(JAVA_HOME_8_X64);$(JAVA_HOME_14_X64)" -trace pwd://build/build_test.trace -trace-artifacts-embed export saker.build
+- script: java -jar saker.build.jar -bd build "-EUsaker.java.jre.install.locations=$(JAVA_HOME_8_X64);$(JAVA_HOME_14_X64)" -trace pwd://build/build_export.trace -trace-artifacts-embed export saker.build
   displayName: 'Export'
 - task: PublishBuildArtifacts@1
   condition: always()
   displayName: 'Publish export trace'
   inputs:
-    pathtoPublish: build/build_exportall.trace
-    artifactName: 'export_trace_$(J_JAVA_MAJOR)'
+    pathtoPublish: build/build_export.trace
+    artifactName: 'export_trace'
 - task: PublishBuildArtifacts@1
   displayName: 'Publish exported libraries'
   inputs:
