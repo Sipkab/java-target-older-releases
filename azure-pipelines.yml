@@ -1,0 +1,31 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: curl -L https://api.nest.saker.build/bundle/download/saker.build-v$(curl -s https://mirror.nest.saker.build/badges/saker.build/latest.txt) -o saker.build.jar
+  displayName: 'Download saker.build'
+- script: curl -s https://gist.githubusercontent.com/Sipkab/1505a8659af20003ae09295e99d3cba3/raw/azure_ubuntu_jdksetup_variables.sh -o /tmp/azure_ubuntu_jdksetup_variables.sh
+  displayName: 'Download JDK setup script'
+- script: bash /tmp/azure_ubuntu_jdksetup_variables.sh 8 14
+  displayName: 'Setup JDKs'
+
+- script: java -jar saker.build.jar -bd build "-EUsaker.java.jre.install.locations=$(JAVA_HOME_8_X64);$(JAVA_HOME_14_X64)" -trace pwd://build/build_test.trace -trace-artifacts-embed export saker.build
+  displayName: 'Export'
+- task: PublishBuildArtifacts@1
+  condition: always()
+  displayName: 'Publish export trace'
+  inputs:
+    pathtoPublish: build/build_exportall.trace
+    artifactName: 'export_trace_$(J_JAVA_MAJOR)'
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish exported libraries'
+  inputs:
+    pathtoPublish: build/saker.jar.create/
+    artifactName: 'export_jar'
+    parallel: true
+
+- script: $(JAVA_HOME_8_X64) -jar build/saker.jar.create/output.jar
+  displayName: 'Run test'
